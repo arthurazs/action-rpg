@@ -13,7 +13,7 @@ enum {
 
 var state = MOVE
 var velocity = Vector2.ZERO
-var input_vector= Vector2.ZERO
+var input_vector = Vector2.ZERO
 onready var animation_state = $AnimationTree.get("parameters/playback")
 
 func _ready():
@@ -27,7 +27,7 @@ func _physics_process(delta):
 		MOVE:
 			move_action(delta)
 		ATTACK:
-			attack_action(delta)
+			attack_action()
 		ROLL:
 			roll_action()
 
@@ -58,7 +58,7 @@ func move_action(delta):
 func move_player():
 	velocity = move_and_slide(velocity)
 	
-func attack_action(delta):
+func attack_action():
 	velocity = velocity * 0.9
 	move_player()
 	animation_state.travel("Attack")

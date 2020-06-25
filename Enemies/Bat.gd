@@ -12,7 +12,7 @@ enum {
 var knock_back = Vector2.ZERO
 var state = IDLE
 var player = null
-var direction
+var direction = Vector2.ZERO
 export var interactable = true
 
 func _ready():
@@ -22,10 +22,15 @@ func _ready():
 		$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
 
 func _physics_process(delta):
-	knock_back = knock_back.move_toward(Vector2.ZERO, FRICT * delta)
-	knock_back = move_and_slide(knock_back)
+	if knock_back != Vector2.ZERO:
+		knock_back = knock_back.move_toward(Vector2.ZERO, FRICT * delta)
+		knock_back = move_and_slide(knock_back)
 	
 	match state:
+		IDLE:
+			if direction != Vector2.ZERO:
+				direction = direction.move_toward(Vector2.ZERO, 100 * delta)
+				direction = move_and_slide(direction)
 		CHASE:
 			direction = position.direction_to(player.global_position) * FRICT * 3 * delta
 			$AnimatedSprite.flip_h = direction.x < 0
@@ -40,11 +45,11 @@ func _on_Hurtbox_area_entered(area):
 
 func _on_Hurtbox_no_health():
 	state = IDLE
+	# warning-ignore:return_value_discarded
+	$AnimatedSprite.connect("animation_finished", self, "_on_DeathAnimation_finished")
 	$CollisionShape2D.set_deferred("disabled", true)
 	$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
-	$AnimatedSprite.hide()
-	$DeathAnimation.show()
-	$DeathAnimation.play()
+	$AnimatedSprite.play("Die")
 
 
 func _on_DeathAnimation_finished():

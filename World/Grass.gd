@@ -12,5 +12,5 @@ func _on_AnimatedSprite_animation_finished():
 
 func _on_Hurtbox_area_entered(_area):
 	if not dying:
-		$AnimatedSprite.play("Animation")
+		$AnimatedSprite.play()
 		dying = true

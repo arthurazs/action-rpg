@@ -599,7 +599,7 @@ tracks/0/keys = {
 "values": [ 7, 8, 9, 10, 11, 6 ]
 }
 
-[sub_resource type="GDScript" id=47]
+[sub_resource type="GDScript" id=46]
 script/source = "extends Area2D
 
 export var damage = 1 setget ,get_damage
@@ -612,7 +612,7 @@ func get_damage():
 	return damage
 "
 
-[sub_resource type="CapsuleShape2D" id=46]
+[sub_resource type="CapsuleShape2D" id=47]
 radius = 11.0
 height = 11.0
 
@@ -624,7 +624,7 @@ script = ExtResource( 2 )
 position = Vector2( 0, -10 )
 texture = ExtResource( 1 )
 hframes = 60
-frame = 59
+frame = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -663,10 +663,10 @@ rotation = 4.71239
 
 [node name="Hitbox" parent="SwordPosition" instance=ExtResource( 3 )]
 collision_mask = 8
-script = SubResource( 47 )
+script = SubResource( 46 )
 
 [node name="CollisionShape2D" parent="SwordPosition/Hitbox" index="0"]
 position = Vector2( -13, -2 )
-shape = SubResource( 46 )
+shape = SubResource( 47 )
 
 [editable path="SwordPosition/Hitbox"]

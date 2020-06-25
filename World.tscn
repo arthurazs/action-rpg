@@ -876,7 +876,7 @@ position = Vector2( 80, 104 )
 position = Vector2( 80, 120 )
 
 [node name="Bush5" parent="YSort/Bushes" instance=ExtResource( 2 )]
-position = Vector2( 168, 152 )
+position = Vector2( 176, 152 )
 
 [node name="Bush6" parent="YSort/Bushes" instance=ExtResource( 2 )]
 position = Vector2( 264, 152 )
@@ -891,12 +891,15 @@ position = Vector2( 24, 40 )
 
 [node name="Grass3" parent="YSort/Grasses" instance=ExtResource( 6 )]
 position = Vector2( 144, 8 )
+interactable = false
 
 [node name="Grass4" parent="YSort/Grasses" instance=ExtResource( 6 )]
 position = Vector2( 80, 16 )
+interactable = false
 
 [node name="Grass5" parent="YSort/Grasses" instance=ExtResource( 6 )]
 position = Vector2( 80, 32 )
+interactable = false
 
 [node name="Grass6" parent="YSort/Grasses" instance=ExtResource( 6 )]
 position = Vector2( 264, 40 )
@@ -920,6 +923,7 @@ position = Vector2( 120, 152 )
 
 [node name="Bat2" parent="YSort/Enemies" instance=ExtResource( 7 )]
 position = Vector2( 80, 168 )
+interactable = false
 
 [node name="Bat3" parent="YSort/Enemies" instance=ExtResource( 7 )]
 position = Vector2( 32, 72 )

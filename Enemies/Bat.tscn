@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Enemies/Bat.png" type="Texture" id=1]
 [ext_resource path="res://Shadows/SmallShadow.png" type="Texture" id=2]
@@ -90,6 +90,9 @@ animations = [ {
 "speed": 15.0
 } ]
 
+[sub_resource type="CircleShape2D" id=20]
+radius = 85.4538
+
 [node name="Bat" type="KinematicBody2D"]
 collision_layer = 0
 script = ExtResource( 4 )
@@ -120,8 +123,17 @@ position = Vector2( 0, -14 )
 frames = SubResource( 19 )
 animation = "Animation"
 frame = 1
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource( 20 )
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="no_health" from="Hurtbox" to="." method="_on_Hurtbox_no_health"]
 [connection signal="animation_finished" from="DeathAnimation" to="." method="_on_DeathAnimation_finished"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_PlayerDetection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_PlayerDetection_body_exited"]
 
 [editable path="Hurtbox"]

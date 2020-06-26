@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
-const ACCEL = 300
-const FRICT = 1200
+export var interactable = true
+
+signal xp
 
 enum {
 	IDLE,
@@ -9,11 +10,13 @@ enum {
 	CHASE
 }
 
+const ACCEL = 300
+const FRICT = 1200
+
 var knock_back = Vector2.ZERO
 var state = IDLE
 var player = null
 var direction = Vector2.ZERO
-export var interactable = true
 
 func _ready():
 	$AnimatedSprite.play()
@@ -47,9 +50,11 @@ func _on_Hurtbox_no_health():
 	state = IDLE
 	# warning-ignore:return_value_discarded
 	$AnimatedSprite.connect("animation_finished", self, "_on_DeathAnimation_finished")
+	$Hitbox/CollisionShape2D.set_deferred("disabled", true)
 	$CollisionShape2D.set_deferred("disabled", true)
 	$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
 	$AnimatedSprite.play("Die")
+	emit_signal("xp")
 
 
 func _on_DeathAnimation_finished():

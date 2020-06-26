@@ -1,15 +1,17 @@
 extends KinematicBody2D
 
-const ACCEL = 1600
-const MAX_SPEED = 150
-const FRICT = 1600
-const FACE_CAMERA = Vector2.DOWN
+signal health_changed(value)
 
 enum {
 	MOVE,
 	ATTACK,
 	ROLL
 }
+
+const ACCEL = 1600
+const MAX_SPEED = 150
+const FRICT = 1600
+const FACE_CAMERA = Vector2.DOWN
 
 var state = MOVE
 var velocity = Vector2.ZERO
@@ -78,6 +80,7 @@ func _on_Roll_finished():
 
 func _on_Hurtbox_area_entered(_area):
 	$Hurtbox.health -= 1
+	emit_signal("health_changed", $Hurtbox.health)
 
 
 func _on_Hurtbox_no_health():

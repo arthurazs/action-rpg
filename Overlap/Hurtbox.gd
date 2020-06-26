@@ -11,14 +11,16 @@ func set_invincible():
 	$Timer.start()
 
 func set_health(value):
-	health = value
+	var decreased = health > value
+	health = clamp(value, 0, max_health)
 	if health <= 0:
 		emit_signal("no_health")
 	else:
-		if gets_invincible:
-			set_invincible()
-		$AnimatedSprite.show()
-		$AnimatedSprite.play()
+		if decreased:
+			if gets_invincible:
+				set_invincible()
+			$AnimatedSprite.show()
+			$AnimatedSprite.play()
 
 
 func _on_AnimatedSprite_animation_finished():
@@ -28,3 +30,5 @@ func _on_AnimatedSprite_animation_finished():
 
 func _on_Timer_timeout():
 	$CollisionShape2D.disabled = false
+	$AnimatedSprite.hide()
+	$AnimatedSprite.frame = 0

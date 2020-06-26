@@ -31,4 +31,7 @@ visible = false
 frames = SubResource( 3 )
 animation = "Animation"
 offset = Vector2( 0, -12 )
+
+[node name="Timer" type="Timer" parent="."]
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

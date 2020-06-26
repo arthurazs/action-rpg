@@ -74,3 +74,11 @@ func _on_Attack_finished():
 	
 func _on_Roll_finished():
 	state = MOVE
+
+
+func _on_Hurtbox_area_entered(_area):
+	$Hurtbox.health -= 1
+
+
+func _on_Hurtbox_no_health():
+	queue_free()

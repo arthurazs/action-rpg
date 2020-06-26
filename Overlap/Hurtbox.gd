@@ -4,12 +4,19 @@ signal no_health
 
 export var max_health = 3
 onready var health = max_health setget set_health
+export var gets_invincible = false
+
+func set_invincible():
+	$CollisionShape2D.set_deferred("disabled", true)
+	$Timer.start()
 
 func set_health(value):
 	health = value
 	if health <= 0:
 		emit_signal("no_health")
 	else:
+		if gets_invincible:
+			set_invincible()
 		$AnimatedSprite.show()
 		$AnimatedSprite.play()
 
@@ -17,3 +24,7 @@ func set_health(value):
 func _on_AnimatedSprite_animation_finished():
 	$AnimatedSprite.hide()
 	$AnimatedSprite.frame = 0
+
+
+func _on_Timer_timeout():
+	$CollisionShape2D.disabled = false

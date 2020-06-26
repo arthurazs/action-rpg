@@ -1,8 +1,9 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://Player/Player.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Overlap/Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Overlap/Hurtbox.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.0
@@ -616,6 +617,10 @@ func get_damage():
 radius = 11.0
 height = 11.0
 
+[sub_resource type="CapsuleShape2D" id=48]
+radius = 6.35847
+height = 5.62039
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 2 )
@@ -668,5 +673,19 @@ script = SubResource( 46 )
 [node name="CollisionShape2D" parent="SwordPosition/Hitbox" index="0"]
 position = Vector2( -13, -2 )
 shape = SubResource( 47 )
+disabled = true
+
+[node name="Hurtbox" parent="." instance=ExtResource( 4 )]
+collision_layer = 4
+max_health = 4
+gets_invincible = true
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0, -6 )
+shape = SubResource( 48 )
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="no_health" from="Hurtbox" to="." method="_on_Hurtbox_no_health"]
 
 [editable path="SwordPosition/Hitbox"]
+
+[editable path="Hurtbox"]

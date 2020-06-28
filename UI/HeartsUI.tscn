@@ -13,7 +13,7 @@ __meta__ = {
 }
 
 [node name="EmptyHearts" type="TextureRect" parent="."]
-margin_right = 15.0
+margin_right = 30.0
 margin_bottom = 11.0
 texture = ExtResource( 2 )
 expand = true

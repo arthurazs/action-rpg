@@ -9,9 +9,6 @@ height = 13.7019
 
 [node name="Bush" type="StaticBody2D"]
 collision_mask = 0
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Shadow" type="Sprite" parent="."]
 texture = ExtResource( 2 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Enemies/Bat.png" type="Texture" id=1]
 [ext_resource path="res://Shadows/SmallShadow.png" type="Texture" id=2]
@@ -6,6 +6,13 @@
 [ext_resource path="res://Enemies/Bat.gd" type="Script" id=4]
 [ext_resource path="res://Effects/EnemyDeathEffect.png" type="Texture" id=5]
 [ext_resource path="res://Overlap/Hitbox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Music and Sounds/EnemyDie.wav" type="AudioStream" id=7]
+[ext_resource path="res://Effects/Blinking.shader" type="Shader" id=8]
+
+[sub_resource type="ShaderMaterial" id=21]
+resource_local_to_scene = true
+shader = ExtResource( 8 )
+shader_param/active = false
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 5 )
@@ -94,12 +101,46 @@ radius = 85.4538
 [sub_resource type="CircleShape2D" id=20]
 radius = 4.70387
 
+[sub_resource type="Animation" id=22]
+resource_name = "Start"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "Stop"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
 [node name="Bat" type="KinematicBody2D"]
 collision_layer = 16
 collision_mask = 16
 script = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 21 )
 position = Vector2( 0, -12 )
 frames = SubResource( 16 )
 animation = "Fly"
@@ -115,6 +156,7 @@ shape = SubResource( 17 )
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]
 collision_layer = 8
 max_health = 2
+gets_invincible = true
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0.0897484, -13.8207 )
@@ -138,6 +180,13 @@ shape = SubResource( 20 )
 
 [node name="WanderTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="BlinkingAnimation" type="AnimationPlayer" parent="."]
+anims/Start = SubResource( 22 )
+anims/Stop = SubResource( 23 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="no_health" from="Hurtbox" to="." method="_on_Hurtbox_no_health"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_PlayerDetection_body_entered"]

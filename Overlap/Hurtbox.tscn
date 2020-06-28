@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Overlap/Hurtbox.gd" type="Script" id=1]
 [ext_resource path="res://Effects/HitEffect.png" type="Texture" id=2]
+[ext_resource path="res://Music and Sounds/Hurt.wav" type="AudioStream" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -35,5 +36,8 @@ offset = Vector2( 0, -12 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 [connection signal="animation_finished" from="AnimatedHit" to="." method="_on_AnimatedHit_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

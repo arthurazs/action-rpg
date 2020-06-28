@@ -63,6 +63,7 @@ func _on_Hurtbox_area_entered(area):
 
 
 func _on_Hurtbox_no_health():
+	$AudioStreamPlayer.play()
 	state = IDLE
 	# warning-ignore:return_value_discarded
 	$AnimatedSprite.connect("animation_finished", self, "_on_DeathAnimation_finished")

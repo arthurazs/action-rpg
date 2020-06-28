@@ -19,5 +19,6 @@ func _on_Enemy_dead():
 	if current_xp == xp_to_lvlup:
 		$YSort/Player/Hurtbox.max_health += 1
 		$CanvasLayer/HeartsUI.max_hearts += 1
+		xp_to_lvlup *= 2
 	else:
 		$CanvasLayer/HeartsUI.hearts += 1

@@ -68,6 +68,7 @@ func attack_action():
 func roll_action():
 	velocity = $AnimationTree.get("parameters/Roll/blend_position") * MAX_SPEED
 	move_player()
+	$Hurtbox.health = "roll"
 	animation_state.travel("Roll")
 	
 
@@ -78,8 +79,8 @@ func _on_Roll_finished():
 	state = MOVE
 
 
-func _on_Hurtbox_area_entered(_area):
-	$Hurtbox.health -= 1
+func _on_Hurtbox_area_entered(area):
+	$Hurtbox.health -= area.damage
 	emit_signal("health_changed", $Hurtbox.health)
 
 

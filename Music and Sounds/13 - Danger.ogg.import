@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/13 - Danger.ogg-40eac7a595089d9c0f5fbb4a1db8a497.oggstr"
+
+[deps]
+
+source_file="res://Music and Sounds/13 - Danger.ogg"
+dest_files=[ "res://.import/13 - Danger.ogg-40eac7a595089d9c0f5fbb4a1db8a497.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

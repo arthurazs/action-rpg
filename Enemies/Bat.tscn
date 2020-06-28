@@ -135,10 +135,14 @@ collision_mask = 4
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2( 0, -16 )
 shape = SubResource( 20 )
+
+[node name="WanderTimer" type="Timer" parent="."]
+one_shot = true
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="no_health" from="Hurtbox" to="." method="_on_Hurtbox_no_health"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_PlayerDetection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_PlayerDetection_body_exited"]
+[connection signal="timeout" from="WanderTimer" to="." method="_on_WanderTimer_timeout"]
 
 [editable path="Hurtbox"]
 

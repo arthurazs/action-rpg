@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export var interactable = true
+export var wanders = true
 
 signal xp
 
@@ -17,6 +18,9 @@ var knock_back = Vector2.ZERO
 var state = IDLE
 var player = null
 var direction = Vector2.ZERO
+var velocity = Vector2.ZERO
+onready var initial_position = global_position
+var wander_position
 
 func _ready():
 	$AnimatedSprite.play()
@@ -31,13 +35,25 @@ func _physics_process(delta):
 	
 	match state:
 		IDLE:
-			if direction != Vector2.ZERO:
+			if global_position.distance_to(initial_position) > 50:
+				direction = global_position.direction_to(initial_position) * 50
+				direction = move_and_slide(direction)
+			elif direction != Vector2.ZERO:
 				direction = direction.move_toward(Vector2.ZERO, 100 * delta)
 				direction = move_and_slide(direction)
+			if wanders:
+				if $WanderTimer.time_left == 0:
+					$WanderTimer.start()
 		CHASE:
 			direction = position.direction_to(player.global_position) * FRICT * 3 * delta
 			$AnimatedSprite.flip_h = direction.x < 0
 			direction = move_and_slide(direction)
+		WANDER:
+			wander_position = initial_position + Vector2(rand_range(-1, 1), rand_range(-1, 1))
+			direction = global_position.direction_to(wander_position) * 50
+			$AnimatedSprite.flip_h = direction.x < 0
+			direction = move_and_slide(direction)
+			state = IDLE
 
 
 func _on_Hurtbox_area_entered(area):
@@ -69,3 +85,8 @@ func _on_PlayerDetection_body_entered(body):
 func _on_PlayerDetection_body_exited(_body):
 	state = IDLE
 	player = null
+
+
+func _on_WanderTimer_timeout():
+	if state != CHASE:
+		state = WANDER

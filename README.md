@@ -6,6 +6,8 @@ Sound Effects and Art Sprites by [HeartBeast](https://www.youtube.com/user/uhear
 
 Song by [t4ngr4m (avgvsta)](https://opengameart.org/content/generic-8-bit-jrpg-soundtrack).
 
+![Game Preview](World/Preview.png)
+
 ## Playing it
 
 Go to the [release page](https://github.com/arthurazs/action-rpg/releases/tag/0.0.2) and download the binary corresponding to your Operational System (Windows or Linux).
